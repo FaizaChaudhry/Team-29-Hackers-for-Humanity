@@ -1,0 +1,64 @@
+import random
+
+# Define the list of food items in the store and their labels
+food_items_in_store = {
+    'chicken': 'protein',
+    'beef': 'protein',
+    'pork': 'protein',
+    'cheese': 'dairy',
+    'packet rice': 'carbohydrate',
+    'pasta': 'carbohydrate',
+    'potatoes': 'carbohydrate',
+    'bread': 'carbohydrate',
+    'broccoli': 'vegetable',
+    'carrots': 'vegetable',
+    'spinach': 'vegetable'
+}
+
+# Define the library of recipes and their ingredients
+recipes = {
+    'recipe1': ['chicken', 'packet rice', 'broccoli' , 'potatoes' , 'spinach'],
+    'recipe2': ['beef', 'pasta', 'spinach' , 'cheese' , 'carrots'],
+    'recipe3': ['pork', 'potatoes', 'carrots' ,  'pasta' , 'broccoli' ],
+    'recipe4': ['bread', 'cheese', 'chicken' , 'carrots' , 'spinach'],
+    'recipe5': ['beef', 'potatoes', 'spinach' , 'bread' , 'broccoli']
+}
+
+# Define the variables to store the selected food items and their labels
+selected_items = []
+selected_labels = []
+
+rerun = True
+while rerun:
+
+# Select at least one of each type of food item and two random ones
+for label in ['protein', 'carbohydrate', 'vegetable']:
+    items = [item for item, item_label in food_items_in_store.items() if item_label == label]
+    selected_items.append(random.choice(items))
+    selected_items.append(random.choice(items))
+    selected_labels.extend([label]*2)
+
+# Randomly shuffle the selected items
+random.shuffle(selected_items)
+
+# Print the selected items and their labels
+print('Selected items:')
+for i in range(len(selected_items)):
+    print(f'{selected_items[i]} ({selected_labels[i]})')
+
+# Find any recipes that match the selected items
+matching_recipes = [recipe for recipe, ingredients in recipes.items() if ingredients == selected_items]
+
+# If there is at least one matching recipe, select one randomly
+if matching_recipes:
+    selected_recipe = random.choice(matching_recipes)
+    print(f'\nMatching recipe found: {selected_recipe}')
+
+# Ask the user if they want to rerun the program
+rerun_input = input(“Do you want another recipe? (y/n):”
+# If the user inputs ‘n’, set the rerun flag to False and exit the loop
+if rerun_input.lower() == ‘n’:
+   rerun = False
+# If combination of food does not correspond to recipe bank, continue the loop and rerun the program
+else:
+    print(“Finding a new recipe”)
