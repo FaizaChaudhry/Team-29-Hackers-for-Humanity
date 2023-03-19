@@ -1,0 +1,37 @@
+import math
+
+# Define the university campus as a central point
+university_location = (51.5246, -0.1335) # latitude and longitude of the university campus
+
+# Define the library of shops surrounding the university campus with their locations
+shops_library = {
+    'shop1': (51.5261, -0.1311), # latitude and longitude of shop1
+    'shop2': (51.5252, -0.1315), # latitude and longitude of shop2
+    'shop3': (51.5267, -0.1343), # latitude and longitude of shop3
+    'shop4': (51.5237, -0.1304), # latitude and longitude of shop4
+    'shop5': (51.5248, -0.1329), # latitude and longitude of shop5
+    'shop6': (51.5233, -0.1346)  # latitude and longitude of shop6
+}
+
+# Define the maximum distance the user is willing to walk in minutes
+max_walk_distance = int(input('Enter the maximum distance you are willing to walk in minutes: '))
+
+# Convert the maximum walk distance to a radius in kilometers
+walk_radius = max_walk_distance / 60 * 1.6 # assuming walking speed of 3.2 km/hour
+
+# Define a list to store the shops that fulfill the criteria
+matching_shops = []
+
+# Loop through all the shops in the library and calculate their distance from the university campus
+for shop, location in shops_library.items():
+    shop_latitude, shop_longitude = location
+    distance = math.sqrt((shop_latitude - university_location[0])**2 + (shop_longitude - university_location[1])**2)
+    
+    # If the distance is within the walk radius, add the shop to the list of matching shops
+    if distance <= walk_radius:
+        matching_shops.append(shop)
+
+# Print the list of matching shops
+print(f'Shops within {max_walk_distance} minutes walk of the university campus:')
+for shop in matching_shops:
+    print(shop)
